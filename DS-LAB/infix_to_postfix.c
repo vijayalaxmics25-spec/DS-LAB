@@ -6,17 +6,17 @@
 char stack[MAX];
 int top = -1;
 
-// Push into stack
+/* Push an element into stack */
 void push(char ch) {
     stack[++top] = ch;
 }
 
-// Pop from stack
+/* Pop an element from stack */
 char pop() {
     return stack[top--];
 }
 
-// Get operator precedence
+/* Function to return precedence of operators */
 int precedence(char ch) {
     if (ch == '+' || ch == '-')
         return 1;
@@ -27,45 +27,44 @@ int precedence(char ch) {
 
 int main() {
     char infix[MAX], postfix[MAX];
-    int i, j = 0;
+    int i = 0, k = 0;
     char ch;
 
-    printf("Enter valid parenthesized infix expression: ");
+    printf("Enter the infix expression: ");
     scanf("%s", infix);
 
-    for (i = 0; infix[i] != '\0'; i++) {
-        ch = infix[i];
+    while ((ch = infix[i++]) != '\0') {
 
-        // If operand, add to postfix
+        /* If operand, add directly to postfix */
         if (isalnum(ch)) {
-            postfix[j++] = ch;
+            postfix[k++] = ch;
         }
-        // If '(', push to stack
+
+        /* If opening parenthesis, push to stack */
         else if (ch == '(') {
             push(ch);
         }
-        // If ')', pop until '('
+
+        /* If closing parenthesis */
         else if (ch == ')') {
-            while (stack[top] != '(') {
-                postfix[j++] = pop();
-            }
-            pop(); // remove '('
+            while (stack[top] != '(')
+                postfix[k++] = pop();
+            pop();   // remove '(' from stack
         }
-        // If operator
+
+        /* If operator */
         else {
-            while (top != -1 && precedence(stack[top]) >= precedence(ch)) {
-                postfix[j++] = pop();
-            }
+            while (top != -1 && precedence(stack[top]) >= precedence(ch))
+                postfix[k++] = pop();
             push(ch);
         }
     }
 
-    // Pop remaining operators
-    while (top != -1) {
-        postfix[j++] = pop();
-    }
+    /* Pop remaining operators from stack */
+    while (top != -1)
+        postfix[k++] = pop();
 
-    postfix[j] = '\0';
+    postfix[k] = '\0';
 
     printf("Postfix expression: %s\n", postfix);
 
