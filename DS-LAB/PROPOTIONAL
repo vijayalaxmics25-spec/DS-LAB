@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    float total_weight = 0;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int weight[n];
+    float share[n];
+
+    for(i = 0; i < n; i++) {
+        printf("Enter weight for Process P%d: ", i + 1);
+        scanf("%d", &weight[i]);
+
+        total_weight += weight[i];
+    }
+
+    printf("\nProcess\tWeight\tCPU Share(%%)\n");
+
+    for(i = 0; i < n; i++) {
+        share[i] = (weight[i] * 100.0) / total_weight;
+
+        printf("P%d\t%d\t%.2f%%\n",
+               i + 1, weight[i], share[i]);
+    }
+
+    return 0;
+}
