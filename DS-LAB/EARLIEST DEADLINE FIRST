@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+int main() {
+    int n, i, j;
+
+    printf("Enter number of tasks: ");
+    scanf("%d", &n);
+
+    int et[n], deadline[n];
+
+    for(i = 0; i < n; i++) {
+        printf("Enter Execution Time and Deadline for Task %d: ", i + 1);
+        scanf("%d%d", &et[i], &deadline[i]);
+    }
+
+    // Sort by deadline
+    for(i = 0; i < n - 1; i++) {
+        for(j = i + 1; j < n; j++) {
+            if(deadline[i] > deadline[j]) {
+                int temp;
+
+                temp = deadline[i];
+                deadline[i] = deadline[j];
+                deadline[j] = temp;
+
+                temp = et[i];
+                et[i] = et[j];
+                et[j] = temp;
+            }
+        }
+    }
+
+    printf("\nTask\tExecution Time\tDeadline\n");
+
+    for(i = 0; i < n; i++) {
+        printf("T%d\t%d\t\t%d\n",
+               i + 1, et[i], deadline[i]);
+    }
+
+    printf("\nExecution Order (Earliest Deadline First):\n");
+
+    for(i = 0; i < n; i++) {
+        printf("T%d ", i + 1);
+    }
+
+    printf("\n");
+
+    return 0;
+}
