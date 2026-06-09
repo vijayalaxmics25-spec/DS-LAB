@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+int main() {
+    int i, n;
+
+    printf("Enter number of philosophers: ");
+    scanf("%d", &n);
+
+    for(i = 0; i < n; i++) {
+        printf("\nPhilosopher %d is Thinking\n", i + 1);
+
+        printf("Philosopher %d picks up Fork %d and Fork %d\n",
+               i + 1, i + 1, (i + 1) % n + 1);
+
+        printf("Philosopher %d is Eating\n", i + 1);
+
+        printf("Philosopher %d puts down Fork %d and Fork %d\n",
+               i + 1, i + 1, (i + 1) % n + 1);
+    }
+
+    return 0;
+}
